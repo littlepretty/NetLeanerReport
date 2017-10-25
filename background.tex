@@ -1,6 +1,21 @@
 \section{Deep Learning Background}
 
-\subsection{Supervised Models}
+\subsection{Learning/Training Techniques}
 
-\subsection{Unsupervised Models}
+\subsection{Unsupervised Generative Models}
+The amount of network traffic data is enormously large, usually in the order of terabytes
+per day in a large monitored network.
+Such available big data makes deep learning techniques a promisingly better solution
+to traffic classification.
+In practice, however, the amount of data is impossible for a human security analyst or
+a group of them to review, e.g., to find patterns and label anomalies.
+Generative model which can be trained unsupervised comes to rescue in that
+\begin{itemize}
+    \item It utilizes the large amount of unlabeled data to learning useful and hierarchical features
+        from the data itself;
+    \item It is equivalently a way to initialize the weights of the hidden layers
+        in a deep neural network, which can be further fine-tuned to be a high performance classifier.
+\end{itemize}
+In this project we propose to try two generative models: restricted Boltzmann machine and autoencoders.
 
+\subsection{Datasets}

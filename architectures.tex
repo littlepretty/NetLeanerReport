@@ -1,7 +1,7 @@
-\section{Neural Networks}
+\section{Deep Learning Neural Networks}
 \label{Sec:Architectures}
-In this section, we give a brief review of the deep learning architectures that we used
-in the network intrusion detection problem.
+In this section, we give a mathematical review of the deep learning architectures that
+we consider promising in the network intrusion detection problem.
 
 \subsection{Multilayer Perceptron}
 Multilayer perceptron (MLP) is a classic deep learning classifier with simple
@@ -50,23 +50,7 @@ the feed-forward step of the perceptron network.
     \label{Fig:MLPArchitecture}
 \end{figure}
 
-\subsection{Generative Models}
-The amount of network traffic data is enormously large, usually in the order of terabytes
-per day in a large monitored network.
-Such available big data makes deep learning techniques a promisingly better solution
-to traffic classification.
-In practice, however, the amount of data is impossible for a human security analyst or
-a group of them to review, e.g., to find patterns and label anomalies.
-Generative model which can be trained unsupervised comes to rescue in that
-\begin{itemize}
-    \item It utilizes the large amount of unlabeled data to learning useful and hierarchical features
-        from the data itself;
-    \item It is equivalently a way to initialize the weights of the hidden layers
-        in a deep neural network, which can be further fine-tuned to be a high performance classifier.
-\end{itemize}
-In this project we propose to try two generative models: restricted Boltzmann machine and autoencoders.
-
-\subsubsection{Restricted Boltzmann Machine}
+\subsection{Restricted Boltzmann Machine}
 Restricted Boltzmann machine (RBM)~\cite{RBMTechReport} is a type of energy-based model,
 which associate a scalar energy to each configuration vector of the variables in the network.
 In energy-based model, learning is the process of configuring the network weights so that
@@ -160,7 +144,7 @@ improve the classification performance.
 
 
 
-\subsubsection{Autoencoders}
+\subsection{Autoencoders}
 An autoencoder neural network is an unsupervised model with typically one hidden layer that
 tries to set the output layer to be equal to the input.
 As shown in Figure~\ref{Fig:AEArchitecture}, we want the network to
@@ -240,3 +224,62 @@ Raina et al.~\cite{SparseAE} have compared sparse encoding with principle compon
 (PCA) and argue that transferring raw features with a well unsupervised trained
 sparse autoencoder can be beneficial to supervised learning algorithms,
 for example support vector machines (SVM).
+
+
+\subsection{Generative Adversarial Nets}
+As another generative model, Generative Adversarial Nets (GAN)\cite{GAN} adopts a novel training framework,
+in which two models are trained simultaneously and adversarially.
+The generative model $G(z;\theta_g)$ aims to capture the probability distribution of the available unlabelled dataset,
+where its input is a noise variable $z$ following a prior distribution $p_z$.
+The discriminative model $D(x;\theta_d)$ output the probability that whether the its input source $S$ comes
+from training dataset ($x\sim data$) or the generative model ($x \sim G(z)$):
+\begin{align}
+    D(X) = P(S|X)
+\end{align}
+
+Models $G$ and $D$ can be as simple as multilayer perceptrons,
+or as complex as deep convolutional nets when training dataset is images.
+The two models are trained in opposition to one another, with respect to the log-likelihood
+function
+\begin{equation}
+\begin{aligned}
+V(D, G) = & \mathbb{E}_{\bm{x}\sim data} [\log P(S=real|X=\bm{x})] + \\
+          & \mathbb{E}_{\bm{x}\sim G(\bm{z})} [\log P(S=fake|X=\bm{x})] \\
+        = & \mathbb{E}[\log D(\bm{x})] + \mathbb{E}[\log (1 - D(G(\bm{z})))]
+\end{aligned}
+\end{equation}
+With $V(D, G)$ properly defined, the training procedure is a two-player minimax game.
+First we make $D$ maximize the log-likelihood that it correctly recognize
+both the training examples and samples generated from $G$;
+at the same time, we make $G$ to generate samples that trick $D$ to make mistake about the
+generated samples.
+This two-phase min-max optimization can be summarized as:
+\begin{align}
+    \min_G \max_D V(D, G)
+\end{align}
+
+Powerful though GAN is, large amount of efforts are needed in training.
+One way to make the training stable and fast is to augment an auxiliary classifier so that
+the training phase can employ the labels if available in the dataset~\cite{AC-GAN}.
+In auxiliary classifier GAN (AC-GAN), the discriminator $D$ now gives both a probability
+distribution over the sources (whether $\bm{x}$ is real or fake) and a probability distribution
+over the class labels:
+\begin{align}
+    D(X) = P(S|X), P(C|X)
+\end{align}
+Accordingly, the log-likelihood function $V(D, G)$ is augmented with the log-likelihood of the correct class:
+\begin{equation}
+\begin{aligned} 
+    V(D, G) &= L_S + L_C \\
+    L_S = & \mathbb{E}_{\bm{x} \sim data} [\log P(S=real|X=\bm{x})] + \\
+          & \mathbb{E}_{\bm{x} \sim G(\bm{z})} [\log P(S=fake|X=\bm{x})] \\
+    L_C = & \mathbb{E}_{\bm{x} \sim data}[\log P(C=c|X=\bm{x})] + \\
+          & \mathbb{E}_{\bm{x} \sim G(\bm{z})} [\log P(C=c|X=\bm{x})]
+\end{aligned}
+\end{equation}
+The training procedure for AC-GAN is similar to GAN: we train $D$ to maximize $V(D, G)$;
+while at the same time we train $G$ to minimize $L_S - L_C$.
+
+
+\subsection{Wide and Deep Learning with Embeddings}
+
