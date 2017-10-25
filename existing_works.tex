@@ -1,0 +1,28 @@
+\section{Existing Works}
+
+We review existing network intrusion detection systems that adopts
+both classic machine learning and novel deep learning approaches.
+
+\subsection{Classic Machine Learning Approaches}
+Prior researchers modeled the intrusion detection task as an unsupervised
+anomaly detection problem, and proposed a series of approaches.
+Examples include Mahalanobis-distance based outliner detection~\cite{ComparativeAnomalyNIDS},
+density-based outliner detection~\cite{LOF, ComparativeAnomalyNIDS},
+evidence accumulation for ranking outliner~\cite{RankingOutliner}, etc.
+One of the advantage of these unsupervised approaches is to tackle the problem of
+the unavailability of labeled traffic data.
+
+Alternatively, prior researchers made a lot of effort to obtain meaningful
+attacking data and to convert them into large amount of labeled data~\cite{DARPA, KDDCup, NSL-KDD}.
+Such efforts make it possible to apply supervised machine learning algorithms to the
+intrusion detection problem.
+Successfully applied approaches include decision trees~\cite{DecisionTree},
+linear and non-linear support vector machines~\cite{SVM}, NB-Tree~\cite{NB-Tree} and so on.
+
+\subsection{Deep Learning Flavor Approaches}
+There are some pioneer works that introduced deep learning approaches to intrusion detection.
+For example, \cite{STL-NIDS} adopts sparse autoencoder and the self-taught learning
+scheme~\cite{SparseAE} to handle the problem that there is limited amount of labeled data
+available for training supervised model.
+Similar semi-supervised approach have also been applied to
+Discriminative restricted Boltzmann machine~\cite{AnomalyDetectionRBM}.

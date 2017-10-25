@@ -1,0 +1,38 @@
+\section{Introduction}
+
+Network intrusion detection system is the essential security technology that
+aims to protect a computer network intelligently and automatically.
+As either a hardware device or software application,
+it monitors a network for malicious activities or policy violations.
+By intercepting and analyzing the bi-direction traffics through the network,
+it raises alarm if intrusion, attack or violation are observed.
+There are two general approaches to detect intrusions.
+In signature based intrusion detection, e.g. SNORT~\cite{Snort},
+rules for specific attacks are pre-installed in the system.
+It report suspicious traffic when the traffic matches any signature of known attacks.
+The major drawback of signature matching approach is that
+it is only effective for previously detected attacks that have an identifiable signature.
+As a result, signature database needs to be manually updated whenever a new type of attack
+is discovered, with significant effort, by the network administrator.
+Anomaly detection based approach overcomes these limitations by adopting a certain
+type of machine learning technique to model the trustworthy network activities.
+Traffics that significantly deviates from the built model are treated as malicious.
+This idea have been shown to be able to detect unknown or novel attacks~\cite{NSL-KDD, STL-NIDS}.
+However, if the built model for normal traffics are not generalized enough,
+anomaly based approach will treat unforeseen normal traffic as malicious,
+suffering from high false positive.
+
+In this project, we follow the anomaly based idea, and tries to enhance it with the
+state-of-art machine learning technology, e.g. several deep learning architectures.
+Specifically, we have made the following contributions in this paper.
+We take the task of offline network intrusion detection for the well-known
+NSL-KDD dataset~\cite{NSL-KDD}.
+Several deep learning approaches are first investigated and discussed,
+including multi-layer perceptrons, restricted Boltzmann machine and two types of autoencoders.
+We then present NetLearner, an implementation of all of the investigated approaches,
+on the basis of TensorFlow.
+We not only make the codebase of NetLearner publicly available to research community,
+but also share the deep learning related hacks and tricks used during the training phase,
+so that future researches can easily reproduce and extend our work.
+Finally the detection performance is measured in accuracy, precision, recall and F-Score,
+with detailed confusion matrix.
