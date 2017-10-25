@@ -400,22 +400,32 @@ Email: dong.jin@iit.edu}
 % As a general rule, do not put math, special symbols or citations
 % in the abstract
 \begin{abstract}
+[Network intrusion detection is complex and needs to be A.I.]
 Recently a handful of novel deep neural networks bundled with more advanced and smarter
 training algorithms have achieved unprecedentedly good performance on image classification,
-natural language processing, speech recognition and many other research branches in
-artificial intelligence.
-In this paper we conduct a comparative study of applying the cutting-edge deep learning
-techniques in network intrusion detection system.
-We first review existing works that adopted traditional machine learning and novel deep learning
-approaches in the anomaly detection based intrusion detection system.
-Then we describe several promising hall-of-fame deep learning approaches.
-On the basis of TensorFlow, we implement the NetLearner library in order to compare
-the performance of multi-layer perceptrons, restricted Boltzmann machine and autoencoders
-with the NSL-KDD dataset.
+natural language processing, speech recognition and many other research branches.
+Motivated by these impressive improvements in the field of artificial intelligence,
+this paper tries to answer the following questions:
+Can we transfer hall-of-fame deep learning approaches to network intrusion detection task?
+If yes, how much improvement can be expected?
+If no, what are the reasons?
+We answer these questions in three steps.
+Firstly, we introduce deep learning models and techniques and why they may better solve the
+network intrusion detection problem from a high-level point of view.
+Besides, we also survey and discuss the status quo of available network intrusion detection datasets
+and its implication on applying deep learning models to network intrusion detection.
+Then we briefly review the existing traditional machine learning approaches, some of which do but
+some of which don't fit into the category of deep learning.
+Nevertheless, these existing works provide the state-of-the-art detection performance.
+In contrast to these approaches, we describe several groups of the cutting-edge deep learning models
+in concisely mathematical languages.
+We conduct a quantitatively comparative study of them with the off-line network intrusion detection datasets,
+on the basis of our own TensorFlow-based deep learning library, NetLearner, that contains
+multi-layer perceptrons, restricted Boltzmann machine, autoencoders and generative adversarial nets.
 Apart from making NetLearner publicly available, we also share the hacks and tricks
 used during the training phase so that future researchers can easily reproduce and extend our work.
-To the best of our knowledge, our feed-forward neural network achieves the best 5-classification
-result, with accuracy of 81.42\% and F1-Score of 80.44\%.
+[To the best of our knowledge, our feed-forward neural network achieves the best 5-classification
+    result, with accuracy of 81.42\% and F1-Score of 80.44\%.]
 \end{abstract}
 
 % no keywords
@@ -434,6 +444,7 @@ result, with accuracy of 81.42\% and F1-Score of 80.44\%.
 \IEEEpeerreviewmaketitle
 
 \input{intro}
+\input{background}
 \input{existing_works}
 \input{architectures}
 \input{implementation}
