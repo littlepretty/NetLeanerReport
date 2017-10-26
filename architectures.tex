@@ -231,7 +231,7 @@ As another generative model, Generative Adversarial Nets (GAN)\cite{GAN} adopts 
 in which two models are trained simultaneously and adversarially.
 The generative model $G(z;\theta_g)$ aims to capture the probability distribution of the available unlabelled dataset,
 where its input is a noise variable $z$ following a prior distribution $p_z$.
-The discriminative model $D(x;\theta_d)$ output the probability that whether the its input source $S$ comes
+The discriminative model $D(x;\theta_d)$ output the probability distribution that the its input source $S$ comes
 from training dataset ($x\sim data$) or the generative model ($x \sim G(z)$):
 \begin{align}
     D(X) = P(S|X)
@@ -282,4 +282,8 @@ while at the same time we train $G$ to minimize $L_S - L_C$.
 
 
 \subsection{Wide and Deep Learning with Embeddings}
+
+
+
+
 

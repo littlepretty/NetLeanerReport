@@ -1,10 +1,30 @@
 \section{Deep Learning Background}
+We identify three main reasons why deep learning succeed in many areas that related
+to artificial intelligence, and their implications on network intrusion detection problem.
 
 \subsection{Learning/Training Techniques}
+Given the feature representations and neural network model, learning is in essential an optimization
+problem for minimizing a predefined cost function.
+The most common used optimizing algorithm is back-propagation and gradient descent because it is Hessian-free.
+The problem is that usually the cost function is non-convex with a lot of local minima.
+Exploding and vanishing gradient will make back-propagation difficult to train deep models, such as recurrent neural networks.
+Even if we can tolerate the long training time and carefully deal with gradient exploding and vanishing,
+the trained model is usually overfitted to the training dataset, and not able to generalize well to the testing dataset or for future usage.
+The emergence of novel learning algorithms and training techniques make training large and deep
+neural network possible.
+For example, stochastic gradient descent (SGD) with mini-batches can greatly increase the training speed.
+In each step of gradient descent, it is shown that momentum can prevent SGD from oscillating across but pushing along the shallow ravine.
+Decaying learning rate usually help us find better local minima.
+To prevent overfitting, researchers have proposed dropout to average exponential number of neural network models.
+These learning algorithms and training techniques will directly help neural networks achieve
+better performance for the network intrusion detection problem since they are general to any types of neural models.
+
 
 \subsection{Unsupervised Generative Models}
-The amount of network traffic data is enormously large, usually in the order of terabytes
-per day in a large monitored network.
+Another 
+
+In the area of network security, the amount of network traffic data is enormously large,
+usually in the order of terabytes per day in a large monitored network.
 Such available big data makes deep learning techniques a promisingly better solution
 to traffic classification.
 In practice, however, the amount of data is impossible for a human security analyst or
@@ -19,3 +39,23 @@ Generative model which can be trained unsupervised comes to rescue in that
 In this project we propose to try two generative models: restricted Boltzmann machine and autoencoders.
 
 \subsection{Datasets}
+
+\begin{table*}[]
+\centering
+\caption{Popular Datasets used in Deep Learning v.s. Available Network Traffic Datasets}
+\label{Tab:Datasets}
+\begin{tabular}{c|l|l|l}
+\multicolumn{1}{c|}{Domain}                           & Dataset Name  & \#Examples in Training Set & Feature Dimension                         \\
+\hline
+\hline
+\multirow{6}{*}{Image}                               & MNIST         & 60,000                     & 784 (28$\times$28 gray images)                 \\
+                                                     & SVHN          & 600,000                    & 3072 (32$\times$32 color images)                 \\
+                                                     & CIFAR-10      & 60,000                     & 3072 (32$\times$32 color images)                 \\
+                                                     & Flickr Photo  & 100,000,000                & O(100,000) pixels per image               \\
+                                                     & Tiny          & 80,000,000                 & O(1000) pixels per image                  \\
+                                                     & ImageNet      & 100,000,000                & O(16,384) (at least 128$\times$128 color images) \\
+\hline
+\multicolumn{1}{l|}{\multirow{2}{*}{Network Traffic}} & UNSW-NB15     & 175,341                    & 49                                        \\
+\multicolumn{1}{l|}{}                                 & NSL-KDD       & 125,973                    & 41                                       
+\end{tabular}
+\end{table*}
