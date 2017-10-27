@@ -282,8 +282,20 @@ while at the same time we train $G$ to minimize $L_S - L_C$.
 
 
 \subsection{Wide and Deep Learning with Embeddings}
+In the network intrusion dataset, categorical and integer features are extremely sparse.
+Usually neural networks are not good at handle large sparse inputs.
+For example, we plot the histogram of the ``dloss" integer feature in UNSW-NB15 dataset, which gives
+the number of destination packets retransmitted or dropped.
+As shown in~\ref{Fig:DlossHist} the feature value ranges from 0 to 6000, while more than 97\%
+of the occurred value is 0 but values from 1000 to 6000 do appear in the dataset.
+For categorical feature ``proto", it tells which one of the 133 protocol types the traffic record belongs to.
+If we one-hot encode ``proto'', this feature will become a set of 133 features with only one being 1.
 
-
-
-
+Such specific situation can be tackled by embeddings. 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.45\textwidth]{figures/dloss_hist.png}
+    \caption{Histogram of the Feature ``dloss" from UNSW-NB15 Dataset.}
+    \label{Fig:DlossHist}
+\end{figure}
 
