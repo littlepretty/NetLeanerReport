@@ -3,40 +3,67 @@ We identify three main reasons why deep learning succeed in many areas that rela
 to artificial intelligence, and their implications on network intrusion detection problem.
 
 \subsection{Learning/Training Techniques}
-Given the feature representations and neural network model, learning is in essential an optimization
-problem for minimizing a predefined cost function.
-The most common used optimizing algorithm is back-propagation and gradient descent because it is Hessian-free.
-The problem is that usually the cost function is non-convex with a lot of local minima.
-Exploding and vanishing gradient will make back-propagation difficult to train deep models, such as recurrent neural networks.
+Given the feature representations and machine learning or neural network model,
+learning is in essential an optimization problem which minimizes a predefined loss function over given training examples.
+The most commonly used optimization algorithm is back-propagation(BP)~\cite{Backpropagation} with gradient descent,
+because the computing gradient is Hessian-free and memoization saves a great amount of computation when
+back propagating level by level.
+However, it is impossible to train deep neural networks and achieve optimal parameters only with BP.
+The first problem is that usually the cost function is non-convex with a lot of local minima and
+first-order gradient is very easy to stuck at a poor local minimum.
+Secondly, exploding and vanishing gradient will make back-propagation difficult to train models with many layers stacked together, such as recurrent neural networks and stacked Restricted Boltzmann Machines.
 Even if we can tolerate the long training time and carefully deal with gradient exploding and vanishing,
-the trained model is usually overfitted to the training dataset, and not able to generalize well to the testing dataset or for future usage.
-The emergence of novel learning algorithms and training techniques make training large and deep
-neural network possible.
-For example, stochastic gradient descent (SGD) with mini-batches can greatly increase the training speed.
-In each step of gradient descent, it is shown that momentum can prevent SGD from oscillating across but pushing along the shallow ravine.
-Decaying learning rate usually help us find better local minima.
-To prevent overfitting, researchers have proposed dropout to average exponential number of neural network models.
+the trained model is usually overfitted to the training dataset, and not able to generalize well to the testing or future dataset.
+
+The emergence of many novel learning algorithms and training techniques makes training large and deep
+neural network and achieving good suboptimal minimum possible.
+For example, stochastic gradient descent (SGD) with mini-batches can greatly increase the training speed comparing
+to normal gradient descent the entire dataset.
+In each step of gradient descent, researchers have shown that momentum~\cite{Momentum} can
+prevent SGD from oscillating across but pushing along the shallow ravine.
+Along with decaying learning rate, momentum-based optimization algorithms, for example Adam~\cite{Adam},
+usually help us find better local minimum.
+To prevent overfitting, researchers have proposed dropout~\cite{Dropout} to average over
+exponential number of neural network models.
 These learning algorithms and training techniques will directly help neural networks achieve
-better performance for the network intrusion detection problem since they are general to any types of neural models.
+better performance for the network intrusion detection problem,
+since they are general to any types of neural models.
 
 
 \subsection{Unsupervised Generative Models}
-Another 
+Another breakthrough in the deep learning area is that researchers have successfully trained
+a number of novel unsupervised generative models that attracted much attentions.
+Different from supervised models (or discriminative models) that tries to discover the relationship between input variables and target label (or the conditional probability distribution of the targets given the input),
+these models aims to learn the joint probability distribution, or joint conditional distribution,
+of \textbf{all} variables for a phenomenon from the given dataset.
+The resulting generative model is powerful in many ways.
+First, given the well trained probability distribution, the model can synthesize meaningful data
+comparable to real examples in training set.
+For example, Auxiliary-Classifier Generative Adversarial Nets (AC-GAN)~\cite{AC-GAN} can generate very high quality
+images after training on ImageNet dataset~\cite{ImageNet};
+both stacked denoising autoencoder~\cite{DenoiseAE} and deep brief nets~\cite{DeepBeliefNets} can synthesize
+handwritten digits after learning from the MNIST dataset.
+Besides, the ability to generate meaningful and high quality faked data actually means that
+the model have learned better feature representations from the unlabeled data itself.
+As an example, it is shown that the features extracted from the hidden units of sparse autoencoder
+can significantly improve the performance of support vector classifier~\cite{SparseAE}.
+At last, researchers have shown that it is usually a good strategy to initialize deep neural networks
+with the weights from a successfully trained generative model~\cite{DeepBeliefNets, Momentum}.
 
 In the area of network security, the amount of network traffic data is enormously large,
 usually in the order of terabytes per day in a large monitored network.
-Such available big data makes deep learning techniques a promisingly better solution
-to traffic classification.
-In practice, however, the amount of data is impossible for a human security analyst or
+In practice, the amount of data is impossible for a human security analyst or
 a group of them to review, e.g., to find patterns and label anomalies.
-Generative model which can be trained unsupervised comes to rescue in that
+This situation makes an unsupervised generative model a promisingly good solution
+to traffic classification since it can be trained unsupervised:
 \begin{itemize}
     \item It utilizes the large amount of unlabeled data to learning useful and hierarchical features
         from the data itself;
     \item It is equivalently a way to initialize the weights of the hidden layers
         in a deep neural network, which can be further fine-tuned to be a high performance classifier.
 \end{itemize}
-In this project we propose to try two generative models: restricted Boltzmann machine and autoencoders.
+In this project we propose to try three types of generative models:
+restricted Boltzmann machine, autoencoders and generative adversarial nets.
 
 \subsection{Datasets}
 
