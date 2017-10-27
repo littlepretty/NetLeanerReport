@@ -1,6 +1,6 @@
 \section{Deep Learning Background}
 We identify three main reasons why deep learning succeed in many areas that related
-to artificial intelligence, and their implications on network intrusion detection problem.
+to artificial intelligence, as well as their implications on network intrusion detection problem.
 
 \subsection{Learning/Training Techniques}
 Given the feature representations and machine learning or neural network model,
@@ -71,18 +71,18 @@ restricted Boltzmann machine, autoencoders and generative adversarial nets.
 \centering
 \caption{Popular Datasets used in Deep Learning v.s. Available Network Traffic Datasets}
 \label{Tab:Datasets}
-\begin{tabular}{c|l|l|l}
-\multicolumn{1}{c|}{Domain}                           & Dataset Name  & \#Examples in Training Set & Feature Dimension                         \\
+\begin{tabular}{c|c|c|c|c}
+\multicolumn{1}{c|}{Domain}                          & Dataset Name  & \#Examples in Training Set & Feature Dimension                         & Dataset Size \\
 \hline
 \hline
-\multirow{6}{*}{Image}                               & MNIST         & 60,000                     & 784 (28$\times$28 gray images)                 \\
-                                                     & SVHN          & 600,000                    & 3072 (32$\times$32 color images)                 \\
-                                                     & CIFAR-10      & 60,000                     & 3072 (32$\times$32 color images)                 \\
-                                                     & Flickr Photo  & 100,000,000                & O(100,000) pixels per image               \\
-                                                     & Tiny          & 80,000,000                 & O(1000) pixels per image                  \\
-                                                     & ImageNet      & 100,000,000                & O(16,384) (at least 128$\times$128 color images) \\
+\multirow{6}{*}{Image}                               & MNIST         & 60,000        & 784 (28$\times$28 gray images)            & 47.04 million \\
+                                                     & SVHN          & 600,000       & 3072 (32$\times$32 color images)          & 1843.2 million \\
+                                                     & CIFAR-10      & 60,000        & 3072 (32$\times$32 color images)          & 184.32 million \\
+                                                     & Flickr Photo  & 100 million   & $\geq$16,000 RGB pixels per image          & $\geq$48 trillion \\
+                                                     & Tiny          & 80 million    & $\geq$256 RGB pixels per image             & $\geq$20.48 billion \\
+                                                     & ImageNet      & 100 million   & $\geq$49,152 (128$\times$128 color images) & $\geq$4.91 trillion \\
 \hline
-\multicolumn{1}{l|}{\multirow{2}{*}{Network Traffic}} & UNSW-NB15     & 175,341                    & 49                                        \\
-\multicolumn{1}{l|}{}                                 & NSL-KDD       & 125,973                    & 41                                       
+\multicolumn{1}{l|}{\multirow{2}{*}{Network Traffic}} & UNSW-NB15    & 175,341       & 42                                        & 7.36 million \\
+\multicolumn{1}{l|}{}                                 & NSL-KDD      & 125,973       & 41                                        & 5.16 million
 \end{tabular}
 \end{table*}
