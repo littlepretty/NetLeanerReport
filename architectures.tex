@@ -1,4 +1,4 @@
-\section{Deep Learning Neural Networks}
+\section{Deep Learning Architectures}
 \label{Sec:Architectures}
 In this section, we give a mathematical review of the deep learning architectures that
 we consider promising in the network intrusion detection problem.
@@ -291,7 +291,22 @@ of the occurred value is 0 but values from 1000 to 6000 do appear in the dataset
 For categorical feature ``proto", it tells which one of the 133 protocol types the traffic record belongs to.
 If we one-hot encode ``proto'', this feature will become a set of 133 features with only one being 1.
 
-Such specific situation can be tackled by embeddings. 
+Such specific situation can be tackled by two ways.
+The first solution is to embed the integer or categorical features. %~\cite{Embeddings}.
+Simply put, an embedding is a mapping from sparse discrete objects to a dense vector of real numbers.
+It is widely used, also known as ``word2vec", in the natural language processing and machine translation tasks,
+where embeddings are treated as points in vector space such that similarity between objects can be visually measured
+by the Euclidean distance or angle between vectors.
+In our case, embedding provide a solution to convert large-vocabulary-size categorical features
+and integer features to dense vectors of continuous values.
+Deep neural network fed with embedding inputs can generalize better even with less feature engineering.
+We can also leverage linear models with nonlinear feature transformations to deal with sparse inputs,
+namely the wide components proposed in~\cite{WideDeepModel}.
+Since such wide components can memoize the feature interactions, it actually complements a deep neural network
+which generalizes better on the condition that inputs are low dimension dense real value vectors.
+As shown in Figure~\ref{Fig:WideDeepModel}, the wide and deep model combines the wide components and deep component
+using a weighted sum of each outputs and is trained jointly and simultaneously.
+
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.45\textwidth]{figures/dloss_hist.png}
@@ -299,3 +314,9 @@ Such specific situation can be tackled by embeddings.
     \label{Fig:DlossHist}
 \end{figure}
 
+\begin{figure*}[h]
+    \centering
+    \includegraphics[width=0.75\textwidth]{figures/WideDeepModel.png}
+    \caption{Anatomy of Wide and Deep Model}
+    \label{Fig:WideDeepModel}
+\end{figure*}
