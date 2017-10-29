@@ -290,7 +290,10 @@ improvement in terms of accuracy.
 The second model we attempted is wide and deep learning model.
 As stated in Section~\ref{SubSec:WD}, the wide and deep model (W\&D) requires us engineering the features in UNSW dataset into
 basis, crossed, continuous, indicator and embedded features.
-The details of both wide and deep components are listed in Table~\ref{Tab:WDFeatures}.
+The basis features are all the symbolic and integer features.
+These basis features are also fed to the deep model after conduct the embedding.
+The continuous features are all the float number features.
+We make all the combinations of symbolic features to be crossed features.
 For comparison reason, we set the structure of the deep neural network in W\&D to be the same sizes as
 that of the baseline neural network, namely three hidden layers with sizes of [480, 512, 640].
 As the result shows, augmenting the deep neural network with wide linear regressor with non-linear transformed features
