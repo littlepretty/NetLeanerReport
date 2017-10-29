@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 import matplotlib
 
 matplotlib.rc('font', size=18)
-machines = ['SVM', 'EmBd', 'W&D', 'AC-GAN']
-accuracy = [81.2564, 87.3549, 90.3245, 87.5868]
+machines = ['SVM', 'BL-NN', 'AC-GAN', 'W&D']
+accuracy = [81.5017, 87.3549, 87.5868, 90.3245]
 width = 0.4
 ind = np.arange(len(machines))
 

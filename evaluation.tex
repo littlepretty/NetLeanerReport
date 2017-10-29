@@ -37,7 +37,7 @@ The simulation is conducted in the Cyber Range Lab of the Australian Centre for 
 and 49 features in the dataset is extracted by a chain of software tools also developed by ACCS.
 The structure of the features is also similar to that of KDDCup 99: 5 flow features,
 13 basic features, 8 content features, 9 time features and 12 other features.
-The size of the dataset is 2,540,044 in term of flow records, 175,341 of which are used for
+The size of the dataset is 257,673 in term of flow records, 175,341 of which are used for
 training set and the rest are for testing.
 There are nine types of attacks in the dataset.
 The only common type of attack between UNSW-NB15 and NSL-KDD is DoS.
@@ -46,12 +46,15 @@ In this project, we consider the 2-class classification problem for UNSW-NB15 da
 task of the classifiers is to predict a given traffic is either normal or malicious.
 
 \subsubsection{Preprocessing}
-Our data preprocessing starts with converting symbolic features and the labels 
-to one-hot encoding format.
-For example, if feature $f$ can take $n$ possible values from 1 to $n$,
-a feature of value $x$ will be converted to a $n$-dimensional binary vector with the $x$th
-dimension set to 1 and others set to zero.
-Then we shuffled the data, along with its label, so that later in the stochastic
+Our data preprocessing starts with map the symbolic fields to a unique integer identifier.
+For example, a data record from NSL-KDD dataset be one of the 5 types of traffic.
+Therefore, its label will be mapped to 0, if normal, or to a number from 1 to 4 representing one of the four attacks.
+A symbolic feature, like ``protocol" in both dataset, will be mapped to integer from 1 to $n$
+where $n$ is the number of possible unique values.
+We one-hot-encode only the label and features with small $n$.
+That is, a feature or a label of value $x$ will be converted to a $n$-dimensional binary vector
+with the $x$th dimension set to 1 and others set to zero.
+Then we shuffled the data, together with its labels, so that later in the stochastic
 gradient descent learning phase, batch data are already randomized.
 At last, we perform the min-max normalization so that data values are all in the range
 of [0, 1].
@@ -101,7 +104,7 @@ It is called confusion matrix because it is useful for visualizing how a classif
 is confusing one class with other classes.
 
 
-\subsection{Performance of Deep Learning Approaches}
+\subsection{Performance of Deep Learning Approaches on NSL-KDD Dataset}
 First we report the classification accuracy of each considered approach in Figure~\ref{Fig:CompAccuracy}.
 Surprisingly, the most ``accurate" approach is the simple 16-neuron perceptron (81.42\%).
 Sparse autoencoder based self-taught leaner achieved second best accuracy of 79.15\%.
@@ -112,13 +115,6 @@ RBM and denoising autoencoder have similar accuracy results (77.58\% and 76.93\%
     \centering
     \includegraphics[width=0.48\textwidth]{figures/comp_accuracy.pdf}
     \caption{Classification Accuracy of Proposed Approaches on NSL-KDD Dataset}
-    \label{Fig:CompAccuracy}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.48\textwidth]{figures/comp_accuracy_unsw.pdf}
-    \caption{Classification Accuracy of Proposed Approaches on UNSW-NB15 Dataset}
     \label{Fig:CompAccuracy}
 \end{figure}
 
@@ -260,4 +256,50 @@ RBM is the best classifier in predicting Probe attacks (2015 out of 2425).
     \end{tabular}
     \label{Tab:ConfusionMatrixDAE}
 \end{table}
+\subsection{Performance of Deep Learning Approaches on UNSW Dataset} 
+We plot the prediction accuracies of different approaches in Figure~\ref{Fig:CompAccuracyUNSW}.
+Support vector machine (SVM) is adopted as traditional machine learning approach that multiple neural networks compare to.
+We trained both linear SVM and non-linear radial basis fuction SVMs and here report the non-linear one's
+accuracy on test dataset because it is superior to linear one (81.50\% v.s. 82.25\%).
+We also trained a plain neural network of a three layer perceptron with layer size of [480, 512, 640],
+denoted as Baseline Neural Network (BL-NN) in the following text.
+We use embedding to convert the sparse features in UNSW dataset, listed in Table~\ref{Tab:SparseFeatures}.
+Its accuracy, more than 5\% increase to SVM, also serves as baseline for the following two novel models proposed
+by deep learning community and described in Section~\ref{Sec:Architectures}.
+\begin{table}[]
+\centering
+\caption{Features Embeddings for the Three-Layer Perceptron}
+\label{Tab:SparseFeatures}
+\begin{tabular}{c|r|r}
+Featue Name & \multicolumn{1}{c|}{Vocabulary Size} & \multicolumn{1}{c}{Embedding Size} \\
+\hline
+\hline
+state       & 11                                  & 4                                  \\
+service     & 13                                  & 4                                  \\
+protocol    & 133                                 & 8                                 
+\end{tabular}
+\end{table}
+
+The first model is auxiliary-classifier generative adversarial net (AC-GAN).
+Its training contains two phases. In the first stage, we trained an AC-GAN to generate fake
+normal and attacking traffics that equals the amount of normal and attacks in training set respectively.
+Then we train a single 400-neuron hidden-layer perceptron with both the synthesized and authentic data.
+Unfortunately, comparing to the baseline three-layer neural network, AC-GAN does not provide any significant
+improvement in terms of accuracy.
+
+The second model we attempted is wide and deep learning model.
+As stated in Section~\ref{SubSec:WD}, the wide and deep model (W\&D) requires us engineering the features in UNSW dataset into
+basis, crossed, continuous, indicator and embedded features.
+The details of both wide and deep components are listed in Table~\ref{Tab:WDFeatures}.
+For comparison reason, we set the structure of the deep neural network in W\&D to be the same sizes as
+that of the baseline neural network, namely three hidden layers with sizes of [480, 512, 640].
+As the result shows, augmenting the deep neural network with wide linear regressor with non-linear transformed features
+provides a 3\% increase in accuracy to the baseline three-layer neural network.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.48\textwidth]{figures/comp_accuracy_unsw.pdf}
+    \caption{Classification Accuracy of Proposed Approaches on UNSW-NB15 Dataset}
+    \label{Fig:CompAccuracyUNSW}
+\end{figure}
 

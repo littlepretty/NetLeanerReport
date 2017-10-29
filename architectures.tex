@@ -279,9 +279,11 @@ Accordingly, the log-likelihood function $V(D, G)$ is augmented with the log-lik
 \end{equation}
 The training procedure for AC-GAN is similar to GAN: we train $D$ to maximize $V(D, G)$;
 while at the same time we train $G$ to minimize $L_S - L_C$.
-
+Currently, we are interested in using GAN or AC-GAN to generate fake traffic.
+In the future, we will also attempt the semi-supervised classification framework with AC-GAN.
 
 \subsection{Wide and Deep Learning with Embeddings}
+\label{SubSec:WD}
 In the network intrusion dataset, categorical and integer features are extremely sparse.
 Usually neural networks are not good at handle large sparse inputs.
 For example, we plot the histogram of the ``dloss" integer feature in UNSW-NB15 dataset, which gives
@@ -300,8 +302,11 @@ by the Euclidean distance or angle between vectors.
 In our case, embedding provide a solution to convert large-vocabulary-size categorical features
 and integer features to dense vectors of continuous values.
 Deep neural network fed with embedding inputs can generalize better even with less feature engineering.
-We can also leverage linear models with nonlinear feature transformations to deal with sparse inputs,
+As stated in~\cite{WideDeepModel}, these input features to the deep neural nets are denoted as deep components, consisted of continuous, one-hot encoded, and embedded features.
+On the other hand, one can also leverage linear models with nonlinear feature transformations to deal with sparse inputs,
 namely the wide components proposed in~\cite{WideDeepModel}.
+The wide components consist of two parts: basis and crossed features.
+
 Since such wide components can memoize the feature interactions, it actually complements a deep neural network
 which generalizes better on the condition that inputs are low dimension dense real value vectors.
 As shown in Figure~\ref{Fig:WideDeepModel}, the wide and deep model combines the wide components and deep component
