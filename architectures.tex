@@ -305,8 +305,20 @@ Deep neural network fed with embedding inputs can generalize better even with le
 As stated in~\cite{WideDeepModel}, these input features to the deep neural nets are denoted as deep components, consisted of continuous, one-hot encoded, and embedded features.
 On the other hand, one can also leverage linear models with nonlinear feature transformations to deal with sparse inputs,
 namely the wide components proposed in~\cite{WideDeepModel}.
-The wide components consist of two parts: basis and crossed features.
-
+The wide components consist of two parts: the basis and crossed features.
+The basis features are raw input features that are either integer or categorical.
+The crossed features are cross-product transformations of basis features:
+\begin{align}
+    \Phi_k (\bm{x} ) = \prod_{i=1}^{d} {x_i}^{c_{ki}}
+\end{align}
+where
+\[
+    c_{ki} = 
+    \begin{cases}
+        1, & \text{$i$-th feature $\in$ the transformation $\Phi_k$} \\
+        0, & \text{otherwise}
+    \end{cases}
+\]
 Since such wide components can memoize the feature interactions, it actually complements a deep neural network
 which generalizes better on the condition that inputs are low dimension dense real value vectors.
 As shown in Figure~\ref{Fig:WideDeepModel}, the wide and deep model combines the wide components and deep component
@@ -321,7 +333,7 @@ using a weighted sum of each outputs and is trained jointly and simultaneously.
 
 \begin{figure*}[h]
     \centering
-    \includegraphics[width=0.75\textwidth]{figures/WideDeepModel.png}
+    \includegraphics[width=0.98\textwidth]{figures/WideDeepModel.png}
     \caption{Anatomy of Wide and Deep Model}
     \label{Fig:WideDeepModel}
 \end{figure*}
