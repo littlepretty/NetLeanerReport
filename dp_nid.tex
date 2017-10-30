@@ -1,0 +1,198 @@
+\documentclass[11pt]{article}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\usepackage[normalem]{ulem}
+
+
+\usepackage{subfigure,epsfig,graphics,url,times,mathrsfs,algorithmic,array,latexsym,xspace,fancyhdr,wrapfig}
+\usepackage[linesnumbered,ruled]{algorithm2e}
+\usepackage{amssymb}
+
+\if 0
+\input{wsc16style.tex}     % download from author kit.  Style files for wsc formatting. Don't remove this line - required for generating the final paper!
+\documentclass{wscpaperproc}
+\usepackage{latexsym}
+\usepackage{graphicx}
+\usepackage{mathptmx}
+\usepackage{xspace}
+\fi
+
+\usepackage{cite}
+\usepackage{amsfonts,amsmath, amsthm}
+\usepackage{bm}
+\usepackage{xspace}
+\usepackage{pifont}
+%\usepackage[usenames,dvipsnames]{color}
+\usepackage{multirow}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{authblk}
+\usepackage{wrapfig}
+\usepackage{graphicx}
+\usepackage{caption}
+
+
+%\usepackage[margin=1in]{geometry}
+%\usepackage{fancybox}
+%\usepackage{calc}
+%\usepackage{url}
+%\usepackage[hang,scriptsize,tight,nooneline]{subfigure}
+%\usepackage{algorithm}
+%\usepackage[noend]{algpseudocode}
+%\usepackage{booktabs}
+%\usepackage{times}
+%\usepackage{enumitem}
+
+%\setlength{\textheight}{9in} \setlength{\textwidth}{6.5in}
+%\setlength{\topmargin}{0pt} \setlength{\evensidemargin}{1pt}
+%\setlength{\oddsidemargin}{1pt} \setlength{\headsep}{10pt}
+%\setlength{\parskip}{1ex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Hyperref stuff
+
+%\usepackage[breaklinks=true,pagebackref,filecolor=black,citecolor=black,urlcolor=black,linkcolor=black,colorlinks,pdfpagelabels,pdfpagelayout=SinglePage,dvips]{hyperref}
+%\usepackage[breaklinks=true,pagebackref,filecolor=black,citecolor=black,urlcolor=black,linkcolor=black,colorlinks,pdfpagelabels,pdfpagelayout=SinglePage]
+
+\usepackage[breaklinks=true,filecolor=black,citecolor=black,urlcolor=black,linkcolor=black,colorlinks,pdfpagelabels,pdfpagelayout=SinglePage]
+{hyperref}
+%\usepackage{backref}
+\usepackage{breakurl}
+\usepackage{multicol}
+%\usepackage{lipsum}
+%\renewcommand{\url}{\burl}
+
+\if 0
+\renewcommand*{\backref}[1]{}
+\renewcommand*{\backrefalt}[4]{
+  \ifcase #1 %
+    (Not cited.) %
+  \or
+    {\small\sffamily (Cited on page~#2.)}%
+  \else
+    {\small\sffamily (Cited on pages~#2.)}%
+  \fi
+}
+\renewcommand*{\backrefsep}{, }
+\renewcommand*{\backreftwosep}{ and~}
+\renewcommand*{\backreflastsep}{ and~}
+\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+%\fontsize{12}{14.4}\selectfont
+
+%\title{Title Here}
+\date{}
+%\maketitle
+%\pagebreak
+
+\newcommand{\ahmed}[1]{{{#1}}}
+
+\newcommand{\ipmatch}[3]{\ensuremath{#1 =_{#3} #2}}
+\newcommand{\ipnotmatch}[3]{\ensuremath{#1 \neq_{#3} #2}}
+
+\newcommand{\eg}{{\it e.g.}}
+\newcommand{\ie}{{\it i.e.}}
+%\newcommand{\comment}{}
+\newcommand{\out}[1]{}
+
+\newcommand{\name}{CCG\xspace}
+\newcommand{\Name}{CCG\xspace}
+\newcommand{\nameConVenus}{$ConVenus$\xspace}
+
+% highlighted comments:
+%\newcommand{\matt}[1]{{\color{green}{#1}}}
+%\newcommand{\mattn}[1]{{\color{blue}{#1}}}
+\newcommand{\matt}[1]{{{#1}}}
+\newcommand{\mattn}[1]{{{#1}}}
+%\newcommand{\mattc}[1]{{\color{red}{#1}}}
+%\newcommand{\pbg}[1]{{\color{magenta}{[#1]}}}
+%\newcommand{\pbgnew}[1]{{\color{magenta}{#1}}}
+\newcommand{\pbgnew}[1]{{{#1}}}
+\newcommand{\pbg}[1]{{{#1}}}
+%\newcommand{\pbgnew}[1]{{{#1}}}
+\newcommand{\wxcomment}[1]{{\color{magenta}{#1}}}
+
+\newcommand{\paragraphb}[1]{\vspace{0.03in}\noindent{\bf #1} }
+\newcommand{\paragraphe}[1]{\vspace{0.03in}\noindent{\em #1} }
+\newcommand{\paragraphbe}[1]{\vspace{0.03in}\noindent{\bf \em #1} }
+
+%\newcommand{\kevin}[1]{{\color{red}{#1}}} 
+\newcommand{\kevin}[1]{{{#1}}} 
+\newcommand{\kevinc}[1]{{\color{red}\bf\em{[kevin: #1]}}} 
+%\newcommand{\kevinc}[1]{{}} 
+%\newcommand{\wxzcrnew}[1]{{\color{Purple}{#1}}} 
+\newcommand{\wxzcrnew}[1]{{{#1}}} 
+\newcommand{\wxzcr}[1]{{{#1}}} 
+\newcommand{\wxznew}[1]{{{#1}}} 
+\newcommand{\wxz}[1]{{{#1}}} 
+%\newcommand{\wxzc}[1]{{\color{Purple}\bf\em{[wxz: #1]}}} 
+\newcommand{\wxzc}[1]{{}} 
+\newcommand{\cut}[1]{}
+%\newcommand{\pbgc}[1]{{\color{Green}\bf\em{[pbg: #1]}}}
+\newcommand{\pbgc}[1]{{}} 
+%\newcommand{\mattc}[1]{{\color{blue}\bf\em{[matt: #1]}}} 
+\newcommand{\mattc}[1]{{}} 
+\newcommand{\fixme}[1]{}
+
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}{Lemma}
+\newtheorem{fact}{Fact}
+\newtheorem{proposition}{Proposition}
+\newtheorem{claim}{Claim}
+
+
+\if 0
+\newenvironment{changemargin}[2]{%
+  \begin{list}{}{%
+    \setlength{\topsep}{0pt}%
+    \setlength{\leftmargin}{#1}%
+    \setlength{\rightmargin}{#2}%
+    \setlength{\listparindent}{\parindent}%
+    \setlength{\itemindent}{\parindent}%
+    \setlength{\parsep}{\parskip}%
+  }%
+  \item[]}{\end{list}}
+\fi
+
+
+%\input{coverpage}
+%\pagebreak
+%\tableofcontents
+%\pagebreak
+%\input{summary}
+%\pagebreak
+%\input{dddas_overview}
+%\input{body}
+%\input{testbed}
+%\input{dp_nid}
+
+\input{abstract}
+\input{intro}
+\input{background}
+\input{existing_works}
+\input{architectures}
+\input{implementation}
+\input{evaluation}
+\input{conclusion}
+
+%\setcounter{page}{1}
+
+\pagebreak
+\linespread{0.96}
+\small
+\bibliographystyle{abbrv}
+\bibliography{ref}
+
+
+%\input{geni}
+
+\end{document}

@@ -11,7 +11,7 @@ ifeq ($(UNAME), Darwin)
 	VIEWER=open -a Preview
 endif
 
-NAME=main
+NAME=dp_nid
 
 .PHONY: clean, view
 
