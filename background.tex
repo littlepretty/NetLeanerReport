@@ -1,17 +1,18 @@
 \section{Deep Learning Background}
-We identify three main reasons why deep learning succeed in many areas that related
+We identify three main reasons why deep learning succeed in many areas related
 to artificial intelligence, as well as their implications on network intrusion detection problem.
 
 \subsection{Learning/Training Techniques}
-Given the feature representations and machine learning or neural network model,
-learning is in essential an optimization problem which minimizes a predefined loss function over given training examples.
+In the supervise learning framework, given the feature representations and inference model,
+learning is in essential an optimization problem which minimizes a predefined loss function
+over given training examples.
 The most commonly used optimization algorithm is back-propagation(BP)~\cite{Backpropagation} with gradient descent,
-because the computing gradient is Hessian-free and memoization saves a great amount of computation when
-back propagating level by level.
+because computing gradient is Hessian-free and memoization saves a great amount of computation when
+propagating backward level by level.
 However, it is impossible to train deep neural networks and achieve optimal parameters only with BP.
-The first problem is that usually the cost function is non-convex with a lot of local minima and
-first-order gradient is very easy to stuck at a poor local minimum.
-Secondly, exploding and vanishing gradient will make back-propagation difficult to train models with many layers stacked together,
+The first problem is that usually the cost function is non-convex with a lot of local minima;
+optimizing algorithms using only first-order gradient is likely to be stuck at a poor local minimum.
+Secondly, exploding and vanishing gradient makes back-propagation difficult to train models with many layers stacked together,
 such as recurrent neural networks and stacked Restricted Boltzmann Machines.
 Even if we can tolerate the long training time and carefully deal with gradient exploding and vanishing,
 the trained model is usually overfitted to the training dataset, and not able to generalize well to the testing or future dataset.
