@@ -240,13 +240,12 @@ from training dataset ($x\sim data$) or the generative model ($x \sim G(z)$):
 Models $G$ and $D$ can be as simple as multilayer perceptrons,
 or as complex as deep convolutional nets when the task domain is image.
 The two models are trained in opposition to one another, with respect to the following log-likelihood function
-\begin{equation}
-\begin{aligned}
-V(D, G) = & \mathbb{E}_{\bm{x}\sim data} [\log P(S=real|X=\bm{x})] + \\
-          & \mathbb{E}_{\bm{x}\sim G(\bm{z})} [\log P(S=fake|X=\bm{x})] \\
-        = & \mathbb{E}[\log D(\bm{x})] + \mathbb{E}[\log (1 - D(G(\bm{z})))]
-\end{aligned}
-\end{equation}
+
+\begin{align}
+V(D, G) & = \mathbb{E}_{\bm{x}\sim data} [\log P(S=real|X=\bm{x})] + \mathbb{E}_{\bm{x}\sim G(\bm{z})} [\log P(S=fake|X=\bm{x})] \\
+        & = \mathbb{E}[\log D(\bm{x})] + \mathbb{E}[\log (1 - D(G(\bm{z})))]
+\end{align}
+
 With $V(D, G)$ properly defined, the training procedure is a two-player minimax game.
 First we maximize the log-likelihood that $D$ correctly recognize
 both the training examples and the samples generated from $G$;
@@ -266,15 +265,15 @@ over the class labels:
     D(X) = P(S|X), P(C|X)
 \end{align}
 Accordingly, the log-likelihood function $V(D, G)$ is augmented with the log-likelihood of the correct class $L_C$:
-\begin{equation}
-\begin{aligned} 
+
+\begin{align} 
     V(D, G) &= L_S + L_C \\
-    L_S = & \mathbb{E}_{\bm{x} \sim data} [\log P(S=real|X=\bm{x})] + \\
-          & \mathbb{E}_{\bm{x} \sim G(\bm{z})} [\log P(S=fake|X=\bm{x})] \\
-    L_C = & \mathbb{E}_{\bm{x} \sim data}[\log P(C=c|X=\bm{x})] + \\
-          & \mathbb{E}_{\bm{x} \sim G(\bm{z})} [\log P(C=c|X=\bm{x})]
-\end{aligned}
-\end{equation}
+    L_S &= \mathbb{E}_{\bm{x} \sim data} [\log P(S=real|X=\bm{x})] + 
+    \mathbb{E}_{\bm{x} \sim G(\bm{z})} [\log P(S=fake|X=\bm{x})] \\
+    L_C &= \mathbb{E}_{\bm{x} \sim data}[\log P(C=c|X=\bm{x})] + 
+    \mathbb{E}_{\bm{x} \sim G(\bm{z})} [\log P(C=c|X=\bm{x})]
+\end{align}
+
 The training procedure for AC-GAN is similar to GAN: we train $D$ to maximize $V(D, G)$;
 while at the same time we train $G$ to minimize $L_S - L_C$.
 Currently, we are interested in using GAN or AC-GAN to generate fake traffic.
@@ -314,13 +313,13 @@ The crossed features are cross-product transformations of basis features:
     \Phi_k (\bm{x} ) = \prod_{i=1}^{d} {x_i}^{c_{ki}}
 \end{align}
 where
-\[
+\begin{align}
     c_{ki} = 
     \begin{cases}
         1, & \text{$i$-th feature $\in$ the transformation $\Phi_k$} \\
         0, & \text{otherwise}
     \end{cases}
-\]
+\end{align}
 Since such wide components can memoize the feature interactions, it actually complements a deep neural network
 which generalizes better than linear model on the condition that inputs are low-dimension dense real value vectors.
 As shown in Figure~\ref{Fig:WideDeepModel}, the wide and deep model combines the wide components and deep components
