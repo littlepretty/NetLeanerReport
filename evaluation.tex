@@ -256,16 +256,19 @@ RBM is the best classifier in predicting Probe attacks (2015 out of 2425).
     \end{tabular}
     \label{Tab:ConfusionMatrixDAE}
 \end{table}
+
+
 \subsection{Performance of Deep Learning Approaches on UNSW Dataset} 
 We plot the prediction accuracies of different approaches in Figure~\ref{Fig:CompAccuracyUNSW}.
 Support vector machine (SVM) is adopted as traditional machine learning approach that multiple neural networks compare to.
-We trained both linear SVM and non-linear radial basis fuction SVMs and here report the non-linear one's
+We have trained both linear SVM and non-linear SVM with radial basis function kernel.
+Here we report the non-linear one's
 accuracy on test dataset because it is superior to linear one (81.50\% v.s. 82.25\%).
-We also trained a plain neural network of a three layer perceptron with layer size of [480, 512, 640],
+We have also trained a plain neural network of a three layers with layer sizes of [480, 512, 640],
 denoted as Baseline Neural Network (BL-NN) in the following text.
 We use embedding to convert the sparse features in UNSW dataset, listed in Table~\ref{Tab:SparseFeatures}.
-Its accuracy, more than 5\% increase to SVM, also serves as baseline for the following two novel models proposed
-by deep learning community and described in Section~\ref{Sec:Architectures}.
+Its accuracy, more than 5\% increase to SVM, also serves as baseline for the following two novel models
+described in Section~\ref{Sec:Architectures}.
 \begin{table}[]
 \centering
 \caption{Features Embeddings for the Three-Layer Perceptron}
@@ -281,22 +284,22 @@ protocol    & 133                                 & 8
 \end{table}
 
 The first model is auxiliary-classifier generative adversarial net (AC-GAN).
-Its training contains two phases. In the first stage, we trained an AC-GAN to generate fake
-normal and attacking traffics that equals the amount of normal and attacks in training set respectively.
-Then we train a single 400-neuron hidden-layer perceptron with both the synthesized and authentic data.
-Unfortunately, comparing to the baseline three-layer neural network, AC-GAN does not provide any significant
+Our training contains two phases. In the first stage, we trained an AC-GAN to generate fake
+normal and fake attacking traffics that equals the amount of normal and attacking traffics in training set respectively.
+Then we train a 400-neuron single-hidden-layer perceptron using both the synthesized and authentic data as training data.
+Unfortunately, comparing to the baseline three-layer neural network, AC-GAN does not provide significant
 improvement in terms of accuracy.
 
 The second model we attempted is wide and deep learning model.
-As stated in Section~\ref{SubSec:WD}, the wide and deep model (W\&D) requires us engineering the features in UNSW dataset into
+As stated in Section~\ref{SubSec:WD}, the wide and deep model (W\&D) requires us engineering the features of UNSW dataset into
 basis, crossed, continuous, indicator and embedded features.
-The basis features are all the symbolic and integer features.
+The basis features are all the raw symbolic and integer features.
 These basis features are also fed to the deep model after conduct the embedding.
-The continuous features are all the float number features.
-We make all the combinations of symbolic features to be crossed features.
+The continuous features are all the raw continuous features.
+We make the full combinations of symbolic features to be crossed features.
 For comparison reason, we set the structure of the deep neural network in W\&D to be the same sizes as
 that of the baseline neural network, namely three hidden layers with sizes of [480, 512, 640].
-As the result shows, augmenting the deep neural network with wide linear regressor with non-linear transformed features
+As the result shows, augmenting the deep neural network with wide linear regressor
 provides a 3\% increase in accuracy to the baseline three-layer neural network.
 
 \begin{figure}[h]

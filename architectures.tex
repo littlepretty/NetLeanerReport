@@ -1,6 +1,6 @@
 \section{Deep Learning Architectures}
 \label{Sec:Architectures}
-In this section, we give a mathematical review of the deep learning architectures that
+In this section, we give mathematical reviews of the deep learning architectures that
 we consider promising in the network intrusion detection problem.
 
 \subsection{Multilayer Perceptron}
@@ -9,7 +9,7 @@ design of the connectivity between neurons.
 It is a fully connected feed-forward neural network, as shown in Figure~\ref{Fig:MLPArchitecture}.
 By introducing non-linear neural units (perceptrons), it can distinguish data that are
 not linearly separable.
-However, the non-linearity also make it very hard to train a deep MLP of more than three layers,
+However, the non-linearity make it very hard to train a deep MLP of more than three layers,
 even if people have proposed the efficient back-propagation learning algorithm~\cite{Backpropagation}.
 Recently it revived due to the various new training techniques designed by deep learning community,
 including Stochastic Gradient Descent (SGD),
@@ -231,16 +231,15 @@ As another generative model, Generative Adversarial Nets (GAN)\cite{GAN} adopts 
 in which two models are trained simultaneously and adversarially.
 The generative model $G(z;\theta_g)$ aims to capture the probability distribution of the available unlabelled dataset,
 where its input is a noise variable $z$ following a prior distribution $p_z$.
-The discriminative model $D(x;\theta_d)$ output the probability distribution that the its input source $S$ comes
+The discriminative model $D(x;\theta_d)$ output the probability distribution that whether the its input source $S$ comes
 from training dataset ($x\sim data$) or the generative model ($x \sim G(z)$):
 \begin{align}
     D(X) = P(S|X)
 \end{align}
 
 Models $G$ and $D$ can be as simple as multilayer perceptrons,
-or as complex as deep convolutional nets when training dataset is images.
-The two models are trained in opposition to one another, with respect to the log-likelihood
-function
+or as complex as deep convolutional nets when the task domain is image.
+The two models are trained in opposition to one another, with respect to the following log-likelihood function
 \begin{equation}
 \begin{aligned}
 V(D, G) = & \mathbb{E}_{\bm{x}\sim data} [\log P(S=real|X=\bm{x})] + \\
@@ -249,25 +248,24 @@ V(D, G) = & \mathbb{E}_{\bm{x}\sim data} [\log P(S=real|X=\bm{x})] + \\
 \end{aligned}
 \end{equation}
 With $V(D, G)$ properly defined, the training procedure is a two-player minimax game.
-First we make $D$ maximize the log-likelihood that it correctly recognize
-both the training examples and samples generated from $G$;
-at the same time, we make $G$ to generate samples that trick $D$ to make mistake about the
-generated samples.
+First we maximize the log-likelihood that $D$ correctly recognize
+both the training examples and the samples generated from $G$;
+in the following phase, we train $G$ to generate samples that trick $D$ to make most mistakes.
 This two-phase min-max optimization can be summarized as:
 \begin{align}
     \min_G \max_D V(D, G)
 \end{align}
 
-Powerful though GAN is, large amount of efforts are needed in training.
-One way to make the training stable and fast is to augment an auxiliary classifier so that
-the training phase can employ the labels if available in the dataset~\cite{AC-GAN}.
-In auxiliary classifier GAN (AC-GAN), the discriminator $D$ now gives both a probability
-distribution over the sources (whether $\bm{x}$ is real or fake) and a probability distribution
+Powerful though GAN is, large amount of efforts and care are needed during training.
+One way to make the training stable and fast is to augment GAN with an auxiliary classifier so that
+the training phase employs the labels available in the dataset~\cite{AC-GAN}.
+In auxiliary classifier GAN (AC-GAN), the discriminator $D$ now gives both the probability
+distribution over the sources (whether $\bm{x}$ is real or fake) and the probability distribution
 over the class labels:
 \begin{align}
     D(X) = P(S|X), P(C|X)
 \end{align}
-Accordingly, the log-likelihood function $V(D, G)$ is augmented with the log-likelihood of the correct class:
+Accordingly, the log-likelihood function $V(D, G)$ is augmented with the log-likelihood of the correct class $L_C$:
 \begin{equation}
 \begin{aligned} 
     V(D, G) &= L_S + L_C \\
@@ -286,12 +284,13 @@ In the future, we will also attempt the semi-supervised classification framework
 \label{SubSec:WD}
 In the network intrusion dataset, categorical and integer features are extremely sparse.
 Usually neural networks are not good at handle large sparse inputs.
-For example, we plot the histogram of the ``dloss" integer feature in UNSW-NB15 dataset, which gives
-the number of destination packets retransmitted or dropped.
+For illustration reason, we plot the histogram of the ``dloss" integer feature in UNSW-NB15 dataset,
+which denotes the number of destination packets retransmitted or dropped.
 As shown in~\ref{Fig:DlossHist} the feature value ranges from 0 to 6000, while more than 97\%
 of the occurred value is 0 but values from 1000 to 6000 do appear in the dataset.
 For categorical feature ``proto", it tells which one of the 133 protocol types the traffic record belongs to.
 If we one-hot encode ``proto'', this feature will become a set of 133 features with only one being 1.
+If we convert ``proto" to an feature of integer identifier, its value will range from 1 to 133.
 
 Such specific situation can be tackled by two ways.
 The first solution is to embed the integer or categorical features. %~\cite{Embeddings}.
@@ -299,11 +298,14 @@ Simply put, an embedding is a mapping from sparse discrete objects to a dense ve
 It is widely used, also known as ``word2vec", in the natural language processing and machine translation tasks,
 where embeddings are treated as points in vector space such that similarity between objects can be visually measured
 by the Euclidean distance or angle between vectors.
-In our case, embedding provide a solution to convert large-vocabulary-size categorical features
-and integer features to dense vectors of continuous values.
+
+In our case, embedding provide a solution to converting large vocabulary sized categorical features
+and sparse integer features to dense vectors of continuous values.
 Deep neural network fed with embedding inputs can generalize better even with less feature engineering.
-As stated in~\cite{WideDeepModel}, these input features to the deep neural nets are denoted as deep components, consisted of continuous, one-hot encoded, and embedded features.
-On the other hand, one can also leverage linear models with nonlinear feature transformations to deal with sparse inputs,
+As stated in~\cite{WideDeepModel}, these input features to the deep neural nets are denoted as deep components,
+consisted of continuous, one-hot encoded, and embedded features.
+
+On the other hand, one can leverage simple linear models with nonlinear feature transformations to deal with sparse inputs,
 namely the wide components proposed in~\cite{WideDeepModel}.
 The wide components consist of two parts: the basis and crossed features.
 The basis features are raw input features that are either integer or categorical.
@@ -320,9 +322,9 @@ where
     \end{cases}
 \]
 Since such wide components can memoize the feature interactions, it actually complements a deep neural network
-which generalizes better on the condition that inputs are low dimension dense real value vectors.
-As shown in Figure~\ref{Fig:WideDeepModel}, the wide and deep model combines the wide components and deep component
-using a weighted sum of each outputs and is trained jointly and simultaneously.
+which generalizes better than linear model on the condition that inputs are low-dimension dense real value vectors.
+As shown in Figure~\ref{Fig:WideDeepModel}, the wide and deep model combines the wide components and deep components
+using a weighted sum of both models' outputs.
 
 \begin{figure}[h]
     \centering
