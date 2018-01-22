@@ -320,6 +320,16 @@ where
         0, & \text{otherwise}
     \end{cases}
 \end{align}
+
+\begin{align}
+    \Phi_k (\mathbf{x} ) = \prod_{i=1}^{d} {x_i}^{c_{ki}}, \text{ where }
+c_{ki} = 
+\begin{cases}
+    1, & \text{$i$-th feature $\in \Phi_k$} \\
+    0, & \text{otherwise}
+\end{cases}
+\end{align}
+
 Since such wide components can memoize the feature interactions, it actually complements a deep neural network
 which generalizes better than linear model on the condition that inputs are low-dimension dense real value vectors.
 As shown in Figure~\ref{Fig:WideDeepModel}, the wide and deep model combines the wide components and deep components
